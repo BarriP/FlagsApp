@@ -27,6 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\flags.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\flags.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Data.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

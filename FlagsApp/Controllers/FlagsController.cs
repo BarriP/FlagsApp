@@ -15,6 +15,16 @@ namespace FlagsApp.Controllers
         private readonly LogRepository _logRepo;
         public FlagsController(LogRepository repo) => _logRepo = repo;
 
+        #region Stats
+
+        [HttpGet("/stats")]
+        public IEnumerable<string> Stats()
+        {
+            return new string[] { "value1", "value2" };
+        }
+
+        #endregion
+
         // GET: api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
