@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlagsApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,9 @@ namespace FlagsApp.Controllers
     [Route("api/[controller]")]
     public class FlagsController : Controller
     {
+        private readonly LogRepository _logRepo;
+        public FlagsController(LogRepository repo) => _logRepo = repo;
+
         // GET: api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
