@@ -6,14 +6,9 @@
 </div>
 
 <main class='container'>
-  <div class='row'>
-    <div class='col-sm-3'>
-      <app-nav-menu></app-nav-menu>
-    </div>
-    <div class='col-sm-9 body-content'>
-
-    </div>
-  </div>
+  <container-element [ngSwitch]="false">
+    <app-nav-menu *ngSwitchDefault></app-nav-menu>
+  </container-element>
 </main>
 
 <footer class="footer">
