@@ -30,12 +30,18 @@
     <None Remove="ClientApp\src\app\models\flags.ts" />
     <None Remove="ClientApp\src\app\models\session.ts" />
     <None Remove="ClientApp\src\app\models\user.ts" />
+    <None Remove="ClientApp\src\app\question\question.component.ts" />
+    <None Remove="ClientApp\src\app\test\posttest.component.ts" />
+    <None Remove="ClientApp\src\app\test\pretest.component.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\models\flags.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\session.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\user.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\question\question.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\test\posttest.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\test\pretest.component.ts" />
   </ItemGroup>
 
   <ItemGroup>

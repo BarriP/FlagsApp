@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from "./models/user.ts"
 
 @Component({
   selector: 'app-root',
@@ -6,12 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  public showQuestions = false;
-
   title = 'app';
-  
 
-  logged() {
+  public view: String = "login";
 
+  private user: User;
+
+  logged(user) {
+    this.user = user;
+    console.log(user);
   }
 }

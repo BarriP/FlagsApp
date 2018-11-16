@@ -17,31 +17,31 @@
   <div class="panel-body">
     <h4>Introduce los siguientes datos</h4>
     
-    <form role="form">
+    <form role="form" (ngSubmit)="onSubmit()" #userForm="ngForm">
       <div class="input-group">
         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-        <input type="text" class="form-control" placeholder="Nombre de usuario (Por ejemplo: jose, carla...)" aria-describedby="basic-addon1" min="3" max="30" required>
+        <input type="text" class="form-control" placeholder="Nombre de usuario (Por ejemplo: jose, carla...)" aria-describedby="basic-addon1" min="3" max="30" required [(ngModel)]="model.name" name="name">
       </div>
       <p class="text-muted">El nombre de usuario no tiene porque ser tu nombre, puede ser cualquier cosa 😊. Pero siempre que uses la aplicacion utiliza el mismo.</p>
 
       <div class="input-group pt">
         <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></span>
-        <input type="number" class="form-control" placeholder="Edad (Por ejemplo: 24, 32 ...)" aria-describedby="basic-addon2" min="2" max="120" required>
+        <input type="number" class="form-control" placeholder="Edad (Por ejemplo: 24, 32 ...)" aria-describedby="basic-addon2" min="2" max="120" required [(ngModel)]="model.age" name="age">
       </div>
       <p class="text-muted">Escribe tu edad, recuerda que no se lo diremos a nadie 😉</p>
 
       <div class="form-group pt">
         <label>Cuanto sabes de las banderas de los estados EEUU, (la bandera de Washington, Utah...)</label>
-        <select class="form-control">
+        <select class="form-control" [(ngModel)]="model.knowledge" name="knowledge">
           <option value="" disabled selected>Selecciona uno</option>
-          <option>Me las se todas</option>
-          <option>Conozco muchas</option>
-          <option>Conozco algunas</option>
-          <option>Nada...</option>
+          <option value="3">Me las se todas</option>
+          <option value="2">Conozco muchas</option>
+          <option value="1">Conozco algunas</option>
+          <option value="0">Nada...</option>
         </select>
       </div>
 
-      <button type="submit" class="btn btn-success mt" (click)="notify()">¡Empezar el Test!</button>
+      <button type="submit" class="btn btn-success mt">¡Empezar el Test!</button>
     </form>
   </div>
 </div>
