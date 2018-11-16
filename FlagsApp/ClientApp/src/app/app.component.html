@@ -6,9 +6,9 @@
 </div>
 
 <main class='container'>
-  <container-element [ngSwitch]="false">
-    <app-nav-menu *ngSwitchDefault></app-nav-menu>
-  </container-element>
+  <div ngSwitch="false">
+    <app-home *ngSwitchDefault></app-home>
+  </div>
 </main>
 
 <footer class="footer">

@@ -8,3 +8,11 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+.pt {
+  padding-top: 0.8rem !important;
+}
+
+.mt {
+  margin-top: 0.8rem !important;
+}
