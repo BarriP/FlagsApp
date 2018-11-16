@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from "./models/user.ts"
+import { User } from "./models/user"
 
 @Component({
   selector: 'app-root',
@@ -16,5 +16,6 @@ export class AppComponent {
   logged(user) {
     this.user = user;
     console.log(user);
+    this.view = "question";
   }
 }
