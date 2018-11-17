@@ -8,7 +8,7 @@
 <main class='container'>
   <div [ngSwitch]="view">
     <app-home (homeEmitter)="logged($event)" *ngSwitchCase="'login'"></app-home>
-    <pretest-component *ngSwitchCase="'pretest'"></pretest-component>
+    <pretest-component (pretestEmitter)="results($event)" *ngSwitchCase="'pretest'"></pretest-component>
     <question-component *ngSwitchCase="'question'"></question-component>
     <app-home (homeEmitter)="logged($event)" *ngSwitchDefault></app-home>
   </div>

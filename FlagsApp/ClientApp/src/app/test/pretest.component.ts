@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FLAGS, FLAG_NAMES } from "../models/flags"
 
 @Component({
@@ -10,17 +10,22 @@ export class PretestComponent implements OnInit {
 
   questions = [];
   answered = [];
+  correct = [];
   canContinue = false;
+  revision = false;
+  @Output() pretestEmitter = new EventEmitter();
 
   generateQuestions() {
     const shuffled = FLAGS.sort(() => 0.5 - Math.random()); 
-    shuffled.forEach((f, index) => {
+    shuffled.slice(1,4).forEach((f, index) => {
       this.questions.push({
         imageUrl: f.imageUrl,
         code: f.code,
         number: index,
-        options: FLAG_NAMES
+        options: FLAG_NAMES,
+        answer: f.name
       });
+      this.correct.push(f.name);
     });
   }
 
@@ -28,7 +33,7 @@ export class PretestComponent implements OnInit {
     this.generateQuestions();
   }
 
-  answer(number, response) {
+  answer(response, number) {
     console.log(number);
     console.log(response);
     if (response == null || response.length === 0) {
@@ -37,6 +42,16 @@ export class PretestComponent implements OnInit {
       this.answered[number] = response;
     }
 
-    this.canContinue = this.answered.every(s => s != null);
+    console.log(this.answered);
+    this.canContinue = this.answered.every(s => s != null) && this.answered.length === 3 && !this.answered.includes(undefined);
+  }
+
+  continue() {
+    if (this.revision) {
+      this.pretestEmitter.emit(0/*TODO*/);
+    } else {
+      this.revision = true;
+      window.scrollTo(0, 0);
+    }
   }
 }

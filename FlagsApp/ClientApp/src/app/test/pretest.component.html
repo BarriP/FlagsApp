@@ -1,5 +1,7 @@
 <h1>Contesta a todas las preguntas para continuar</h1>
-
+<div class="alert alert-success" *ngIf="revision">
+  Revisa tus respuestas y empezaremos con el entrenamiento
+</div>
 <!-- test -->
 <div class="panel panel-default" *ngFor="let question of questions">
   <div class="panel-heading">
@@ -9,12 +11,18 @@
     <img src="{{question.imageUrl}}"/>
     <div class="form-group">
       <label class="pt">¿Que Estado tiene esta bandera?</label>
-      <select class="form-control" (change)="answer($event.target.value, question.number)">
+      <select class="form-control" (change)="answer($event.target.value, question.number)" [disabled]="revision">
         <option value="" disabled selected>Selecciona una respuesta</option>
         <option *ngFor="let option of question.options" value="{{option}}">{{option}}</option>
       </select>
+      <div class="alert alert-success mt" *ngIf="revision && answered[question.number] === correct[question.number]">
+        La respuesta correcta era: {{question.answer}}
+      </div>
+      <div class="alert alert-danger mt" *ngIf="revision && answered[question.number] !== correct[question.number]">
+        La respuesta correcta era: {{question.answer}}
+      </div>
     </div>
   </div>
 </div>
 
-<button class="btn btn-success" [disabled]="!canContinue">Continuar</button>
+<button class="btn btn-success" [disabled]="!canContinue" (click)="continue()">Continuar</button>

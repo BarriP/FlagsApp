@@ -8,7 +8,7 @@ import { User } from "./models/user"
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  view = 'pretest';
+  view = 'login';
 
   private user: User;
 
@@ -16,6 +16,10 @@ export class AppComponent implements OnInit {
     this.user = user;
     console.log(user);
     this.view = 'pretest';
+  }
+
+  pretest(results) {
+    this.view = 'question';
   }
 
   ngOnInit() {
