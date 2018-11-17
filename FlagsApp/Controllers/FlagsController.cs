@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlagsApp.Models;
+using FlagsApp.Models.Form;
 using FlagsApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +16,25 @@ namespace FlagsApp.Controllers
     {
         private readonly LogRepository _logRepo;
         public FlagsController(LogRepository repo) => _logRepo = repo;
+
+        #region Session
+
+        [HttpPost("session/new")]
+        public IActionResult NewSession([FromBody]FormSession value)
+        {
+            var user = _logRepo.NewSession(new Session
+            {
+                Age = value.Age,
+                User = value.User,
+                StartTime = value.StartTime,
+                Knowledge = value.Knowledge,
+                UserId = value.UserId
+            });
+
+            return Ok(user);
+        }
+
+        #endregion
 
         #region Stats
 

@@ -14,6 +14,7 @@ import { QuestionComponent } from "./question/question.component"
 import { PretestComponent } from "./test/pretest.component"
 import { PosttestComponent } from "./test/posttest.component"
 import { HeaderService } from "./header.service"
+import { CookieService } from 'ngx-cookie-service';
  
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { HeaderService } from "./header.service"
       { path: '', component: NavMenuComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [HeaderService],
+  providers: [HeaderService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

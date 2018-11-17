@@ -1,5 +1,7 @@
 export class User {
-  name: string;
+  user: string;
+  userid: number;
   age: number;
   knowledge: number;
+  startTime: number;
 }

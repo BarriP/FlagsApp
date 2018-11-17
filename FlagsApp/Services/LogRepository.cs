@@ -12,6 +12,8 @@ namespace FlagsApp.Services
         private readonly DataContext _context;
         public LogRepository(DataContext ctx) => _context = ctx;
 
+        public Session NewSession(Session newSession) => _context.Session.Add(newSession).Entity;
+
         /*
         public IEnumerable<Bar> GetBares() => _context.Bar.Include(u => u.Tapa).ToList();
 

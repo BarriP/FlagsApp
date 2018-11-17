@@ -24,7 +24,7 @@
     <form role="form" (ngSubmit)="onSubmit()" #userForm="ngForm">
       <div class="input-group">
         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-        <input type="text" class="form-control" placeholder="Nombre de usuario (Por ejemplo: jose, carla...)" aria-describedby="basic-addon1" min="3" max="30" required [(ngModel)]="model.name" name="name">
+        <input type="text" class="form-control" placeholder="Nombre de usuario (Por ejemplo: jose, carla...)" aria-describedby="basic-addon1" min="3" max="30" required [(ngModel)]="model.user" name="name">
       </div>
       <p class="text-muted">El nombre de usuario no tiene porque ser tu nombre, puede ser cualquier cosa 😊. Pero siempre que uses la aplicacion utiliza el mismo.</p>
 
