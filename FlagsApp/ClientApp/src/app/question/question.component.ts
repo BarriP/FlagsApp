@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FLAGS, FLAG_NAMES } from "../models/flags"
+import { HeaderService } from "../header.service";
 
 const RONDAS = 2;
 const PREGUNTAS = 3;
@@ -32,6 +33,8 @@ export class QuestionComponent implements OnInit {
   // revisar la contestacion
   check = false;
 
+  constructor(public service: HeaderService) { }
+
   ngOnInit() {
     this.newRound();
   }
@@ -42,6 +45,8 @@ export class QuestionComponent implements OnInit {
     this.review = false;
     this.currentPhase = 0;
     this.currentRound++;
+
+    this.service.question(this.currentRound, this.currentPhase)
 
     if (this.currentRound > RONDAS) {
       this.questionEmitter.emit(0);
@@ -93,15 +98,19 @@ export class QuestionComponent implements OnInit {
     if (this.check) {
       this.currentPhase++;
 
-      if (this.currentPhase <  PREGUNTAS) {
+      if (this.currentPhase < PREGUNTAS) {
         this.answer = true;
         this.check = false;
+        this.service.question(this.currentRound, this.currentPhase);
         this.currentQuestion = this.roundQuestions[this.currentPhase];
+        return;
       } else {
         this.answer = false;
         this.check = false;
         this.review = true;
-        window.moveTo(0,0);
+        this.service.review(this.currentRound);
+        window.moveTo(0, 0);
+        return;
       }
     }
 

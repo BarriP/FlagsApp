@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\header.service.ts" />
     <None Remove="ClientApp\src\app\models\flags.ts" />
     <None Remove="ClientApp\src\app\models\session.ts" />
     <None Remove="ClientApp\src\app\models\user.ts" />
@@ -36,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\header.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\flags.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\session.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\user.ts" />

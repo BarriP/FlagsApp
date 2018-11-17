@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from "./models/user"
+import { HeaderService } from "./header.service";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,11 @@ import { User } from "./models/user"
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  view = 'end';
+  view = 'login';
 
   private user: User;
+
+  constructor(public service: HeaderService) { }
 
   logged(user) {
     this.user = user;

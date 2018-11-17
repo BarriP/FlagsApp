@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { User } from "../models/user";
+import { HeaderService } from "../header.service";
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,12 @@ export class HomeComponent {
   @Output() homeEmitter = new EventEmitter();
 
   model = new User();
+
+  constructor(public service: HeaderService) {}
+
+  ngOnInit() {
+    
+  }
 
   onSubmit() {
     if (this.model.age == null || this.model.name == null || this.model.knowledge == null) {

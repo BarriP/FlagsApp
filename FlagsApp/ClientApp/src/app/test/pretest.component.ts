@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FLAGS, FLAG_NAMES } from "../models/flags"
+import { HeaderService } from "../header.service";
 
 @Component({
   selector: 'pretest-component',
@@ -14,6 +15,8 @@ export class PretestComponent implements OnInit {
   canContinue = false;
   revision = false;
   @Output() pretestEmitter = new EventEmitter();
+
+  constructor(public service: HeaderService) { }
 
   generateQuestions() {
     const shuffled = FLAGS.sort(() => 0.5 - Math.random()); 
@@ -31,6 +34,7 @@ export class PretestComponent implements OnInit {
 
   ngOnInit() {
     this.generateQuestions();
+    this.service.pretest();
   }
 
   answer(response, number) {

@@ -2,8 +2,6 @@ button {
   width: 100% !important;
 }
 
-@media (max-width: 494px) {
-  panel {
-    padding-bottom: 100px !important;
-  }
+.panel-success {
+  margin-bottom: 100px !important;
 }

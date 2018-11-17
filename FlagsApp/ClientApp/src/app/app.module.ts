@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { QuestionComponent } from "./question/question.component"
 import { PretestComponent } from "./test/pretest.component"
 import { PosttestComponent } from "./test/posttest.component"
+import { HeaderService } from "./header.service"
  
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { PosttestComponent } from "./test/posttest.component"
       { path: '', component: NavMenuComponent, pathMatch: 'full' }
     ])
   ],
-  providers: [],
+  providers: [HeaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
