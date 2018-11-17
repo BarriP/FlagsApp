@@ -7,9 +7,9 @@
 
 <main class='container'>
   <div [ngSwitch]="view">
-    <app-home (homeEmitter)="logged($event)" *ngSwitchCase="login"></app-home>
+    <app-home (homeEmitter)="logged($event)" *ngSwitchCase="'login'"></app-home>
+    <question-component *ngSwitchCase="'question'"></question-component>
     <app-home (homeEmitter)="logged($event)" *ngSwitchDefault></app-home>
-    <app-question *ngSwitchCase="question"></app-question>
   </div>
 </main>
 

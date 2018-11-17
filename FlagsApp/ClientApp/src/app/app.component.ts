@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from "./models/user"
 
 @Component({
@@ -6,16 +6,20 @@ import { User } from "./models/user"
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
-
-  public view: String = "login";
+  view = 'login';
 
   private user: User;
 
   logged(user) {
     this.user = user;
     console.log(user);
-    this.view = "question";
+    this.view = 'question';
   }
+
+  ngOnInit() {
+
+  }
+
 }
