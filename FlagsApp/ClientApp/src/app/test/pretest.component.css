@@ -1,2 +1,8 @@
-﻿body {
+img {
+  width: 100%;
+}
+
+button {
+  margin-bottom: 100px !important;
+  width: 100%;
 }

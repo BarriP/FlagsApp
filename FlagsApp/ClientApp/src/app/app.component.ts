@@ -8,14 +8,14 @@ import { User } from "./models/user"
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  view = 'login';
+  view = 'pretest';
 
   private user: User;
 
   logged(user) {
     this.user = user;
     console.log(user);
-    this.view = 'question';
+    this.view = 'pretest';
   }
 
   ngOnInit() {

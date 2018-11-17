@@ -1,0 +1,20 @@
+<h1>Contesta a todas las preguntas para continuar</h1>
+
+<!-- test -->
+<div class="panel panel-default" *ngFor="let question of questions">
+  <div class="panel-heading">
+    <h3>Pregunta {{question.number + 1}} de 50</h3>
+  </div>
+  <div class="panel-body">
+    <img src="{{question.imageUrl}}"/>
+    <div class="form-group">
+      <label class="pt">¿Que Estado tiene esta bandera?</label>
+      <select class="form-control" (change)="answer($event.target.value, question.number)">
+        <option value="" disabled selected>Selecciona una respuesta</option>
+        <option *ngFor="let option of question.options" value="{{option}}">{{option}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-success" [disabled]="!canContinue">Continuar</button>

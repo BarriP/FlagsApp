@@ -12,10 +12,6 @@
   }
 }
 
-@media (max-width: 494px) {
-  main { padding-bottom: 100px !important; }
-}
-
   .container {
     width: auto;
     max-width: 680px;
