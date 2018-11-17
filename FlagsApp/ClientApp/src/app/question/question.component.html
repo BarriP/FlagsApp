@@ -1,18 +1,44 @@
-<div class="panel panel-info" *ngIf="!review">
+<div class="main-panel panel panel-info" *ngIf="!review">
   <div class="panel-heading">
     ¿Que Estado tiene esta bandera?
   </div>
   <div class="panel-body">
-    <img src="{{currentQuestion.image}}"/>
+    <img src="{{currentQuestion.image}}" />
 
     <ul class="list-group mt">
       <li class="list-group-item" *ngFor="let option of currentQuestion.answers" (click)="respond(option)">{{option}}</li>
     </ul>
+
+    <div class="alert alert-success" *ngIf="check && currentResponse.isCorrect">
+      ¡Correcto! Esta bandera es de <strong>{{currentResponse.correct}}</strong>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="check && !currentResponse.isCorrect">
+      Has fallado. Contestaste <em>{{currentResponse.answered}}</em>, pero la respuesta correcta era <strong>{{currentResponse.correct}}</strong>
+    </div>
+
+    <button class="btn btn-success mt" *ngIf="!answer" (click)="continue()">Continuar</button>
   </div>
 </div>
 
-<div *ngIf="review">
-  REVIEW TAIMU
+<h1 class="text-center"*ngIf="review">Vamos a hacer un repaso de las banderas que hemos visto</h1>
+
+<div class="main-panel panel panel-warning mt" *ngIf="review">
+  <div class="panel-heading">
+    Repaso de las banderas que hemos visto
+  </div>
+
+  <div class="panel-body">
+    <div class="panel panel-primary" *ngFor="let q of roundQuestions">
+      <div class="panel-heading">
+        {{q.name}}
+      </div>
+      <div>
+        <img src="{{q.image}}" />
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-success mt" (click)="continue()">Continuar</button>
 </div>
 
-<button class="btn btn-success" *ngIf="!answer" (click)="continue()">Continuar</button>

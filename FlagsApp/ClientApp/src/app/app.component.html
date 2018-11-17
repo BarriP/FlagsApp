@@ -9,8 +9,13 @@
   <div [ngSwitch]="view">
     <app-home (homeEmitter)="logged($event)" *ngSwitchCase="'login'"></app-home>
     <pretest-component (pretestEmitter)="pretest($event)" *ngSwitchCase="'pretest'"></pretest-component>
-    <question-component *ngSwitchCase="'question'"></question-component>
-    <posttest-component *ngSwitchCase="'posttest'"></posttest-component>
+    <question-component (questionEmitter)="question($event)" *ngSwitchCase="'question'"></question-component>
+    <posttest-component (posttestEmitter)="posttest($event)" *ngSwitchCase="'posttest'"></posttest-component>
+    <div class="jumbotron end" *ngSwitchCase="'end'">
+      <h1 class="text-center">¡¡¡Gracias por participar!!!</h1>
+      <img src="https://media1.tenor.com/images/b57699f302b3350f62a93a8af6d9a721/tenor.gif" alt="end" style="width: 100%"/>
+      <h2 class="text-center">No te preocupes, cuidaremos bien de tus datos</h2>
+    </div>
     <app-home (homeEmitter)="logged($event)" *ngSwitchDefault></app-home>
   </div>
 </main>

@@ -11,6 +11,8 @@ const PREGUNTAS = 3;
 })
 export class QuestionComponent implements OnInit {
 
+  @Output() questionEmitter = new EventEmitter();
+
   round = [];
   phases = [];
 
@@ -36,15 +38,21 @@ export class QuestionComponent implements OnInit {
 
   newRound() {
     this.answer = true;
+    this.check = false;
+    this.review = false;
     this.currentPhase = 0;
     this.currentRound++;
+
+    if (this.currentRound > RONDAS) {
+      this.questionEmitter.emit(0);
+    }
 
     //sacar las preguntas
     this.drawQuestions();
   }
 
   drawQuestions() {
-    const questionFlags = FLAGS.sort(() => 0.5 - Math.random()).slice(0, RONDAS);
+    const questionFlags = FLAGS.sort(() => 0.5 - Math.random()).slice(0, PREGUNTAS);
     questionFlags.forEach(f => {
       this.roundQuestions.push({
         image: f.imageUrl,
@@ -70,6 +78,7 @@ export class QuestionComponent implements OnInit {
   respond(response) {
     if (this.answer) {
       const resp = {
+        isCorrect: this.currentQuestion.name === response,
         correct: this.currentQuestion.name,
         answered: response
       };
@@ -89,10 +98,15 @@ export class QuestionComponent implements OnInit {
         this.check = false;
         this.currentQuestion = this.roundQuestions[this.currentPhase];
       } else {
-        console.log("ENDO");
+        this.answer = false;
+        this.check = false;
+        this.review = true;
+        window.moveTo(0,0);
       }
     }
-  }
 
-  
+    if (this.review) {
+      this.newRound();
+    }
+  }
 }
