@@ -1,4 +1,4 @@
-using FlagsApp.Models;
+﻿using FlagsApp.Models;
 using FlagsApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,7 +32,7 @@ namespace FlagsApp
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Flags API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "🚩 Flags API", Version = "v1" });
                 c.DescribeAllEnumsAsStrings();
             });
 
@@ -64,7 +64,7 @@ namespace FlagsApp
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flags API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "🚩 Flags API V1");
             });
 
             app.UseHttpsRedirection();

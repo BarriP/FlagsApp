@@ -8,7 +8,7 @@ import { User } from "./models/user"
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  view = 'login';
+  view = 'question';
 
   private user: User;
 
