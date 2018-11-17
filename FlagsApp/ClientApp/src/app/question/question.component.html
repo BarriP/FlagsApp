@@ -1,18 +1,18 @@
-<div class="panel panel-info">
+<div class="panel panel-info" *ngIf="!review">
   <div class="panel-heading">
     ¿Que Estado tiene esta bandera?
   </div>
   <div class="panel-body">
-    <img src="http://usa.banderas-mundo.es/data/flags/normal/ak.png"/>
+    <img src="{{currentQuestion.image}}"/>
 
     <ul class="list-group mt">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Morbi leo risus</li>
-      <li class="list-group-item">Porta ac consectetur ac</li>
-      <li class="list-group-item">Vestibulum at eros</li>
+      <li class="list-group-item" *ngFor="let option of currentQuestion.answers" (click)="respond(option)">{{option}}</li>
     </ul>
   </div>
 </div>
 
-<button class="btn btn-success" (click)="continue()">Continuar</button>
+<div *ngIf="review">
+  REVIEW TAIMU
+</div>
+
+<button class="btn btn-success" *ngIf="!answer" (click)="continue()">Continuar</button>

@@ -20,6 +20,9 @@ export class QuestionComponent implements OnInit {
   currentRound = -1;
   currentPhase = -1;
 
+  currentQuestion: any = {};
+  currentResponse: any = {};
+
   // revision general
   review = false;
   // contestar
@@ -50,6 +53,7 @@ export class QuestionComponent implements OnInit {
         answers: this.drawAnswers(f.name)
       });
     });
+    this.currentQuestion = this.roundQuestions[0];
   }
 
   drawAnswers(name: string) {
@@ -60,20 +64,32 @@ export class QuestionComponent implements OnInit {
       if (s !== name)
         result.push(s);
     });
-    return result;
+    return result.slice(0,4).sort(() => 0.5 - Math.random());
   }
 
-  respond() {
-
+  respond(response) {
+    if (this.answer) {
+      const resp = {
+        correct: this.currentQuestion.name,
+        answered: response
+      };
+      this.roundResponses.push(resp);
+      this.currentResponse = resp;
+      this.answer = false;
+      this.check = true;
+    }
   }
 
   continue() {
-    if (this.answer) {
-      this.currentRound++;
+    if (this.check) {
+      this.currentPhase++;
 
-      if (this.currentRound < RONDAS) {
-        this.answer = false;
-        this.check = true;
+      if (this.currentPhase <  PREGUNTAS) {
+        this.answer = true;
+        this.check = false;
+        this.currentQuestion = this.roundQuestions[this.currentPhase];
+      } else {
+        console.log("ENDO");
       }
     }
   }
