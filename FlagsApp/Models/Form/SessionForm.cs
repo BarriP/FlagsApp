@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FlagsApp.Models.Form
 {
-    public class FormSession
+    public class SessionForm
     {
         public string User { get; set; }
         public long UserId { get; set; }

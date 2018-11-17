@@ -20,7 +20,7 @@ namespace FlagsApp.Controllers
         #region Session
 
         [HttpPost("session/new")]
-        public IActionResult NewSession([FromBody]FormSession value)
+        public IActionResult NewSession([FromBody]SessionForm value)
         {
             var user = _logRepo.NewSession(new Session
             {
@@ -30,8 +30,20 @@ namespace FlagsApp.Controllers
                 Knowledge = value.Knowledge,
                 UserId = value.UserId
             });
+            _logRepo.Save();
 
             return Ok(user);
+        }
+
+        #endregion
+
+        #region Round
+
+        [HttpPost("round/new")]
+        public IActionResult NewRound([FromBody]RoundForm value)
+        {
+
+            return Ok();
         }
 
         #endregion
