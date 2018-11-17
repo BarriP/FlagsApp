@@ -46,6 +46,9 @@ export class QuestionComponent implements OnInit {
     this.currentPhase = 0;
     this.currentRound++;
 
+    this.roundQuestions = [];
+    this.roundResponses = [];
+
     this.service.question(this.currentRound, this.currentPhase)
 
     if (this.currentRound > RONDAS) {

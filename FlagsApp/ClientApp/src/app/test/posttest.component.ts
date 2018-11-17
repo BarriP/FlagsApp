@@ -34,7 +34,7 @@ export class PosttestComponent implements OnInit {
 
   ngOnInit() {
     this.generateQuestions();
-    this.service.pretest();
+    this.service.posttest();
   }
 
   answer(response, number) {
