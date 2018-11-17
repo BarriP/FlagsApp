@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 import { QuestionComponent } from "./question/question.component"
 import { PretestComponent } from "./test/pretest.component"
+import { PosttestComponent } from "./test/posttest.component"
  
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { PretestComponent } from "./test/pretest.component"
     CounterComponent,
     FetchDataComponent,
     QuestionComponent,
-    PretestComponent
+    PretestComponent,
+    PosttestComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
