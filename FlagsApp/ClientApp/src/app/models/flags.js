@@ -8,7 +8,6 @@ var Flag = /** @class */ (function () {
     return Flag;
 }());
 exports.Flag = Flag;
-exports.ab = "sdsd";
 exports.FLAGS = [
     new Flag("AL", ""),
     new Flag("AK", ""),
@@ -61,5 +60,9 @@ exports.FLAGS = [
     new Flag("WI", ""),
     new Flag("WY", "")
 ];
-exports.FLAG_OBJECTS = exports.FLAGS.map(function (f) { return 2; });
+exports.FLAG_OBJECTS = exports.FLAGS.map(function (f) {
+    var result = {};
+    result[f.code] = f;
+    return result;
+});
 //# sourceMappingURL=flags.js.map

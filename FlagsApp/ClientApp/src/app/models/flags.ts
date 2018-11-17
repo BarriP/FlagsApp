@@ -9,8 +9,6 @@ export class Flag {
   }
 }
 
-export const ab = "sdsd";
-
 export const FLAGS: Flag[] = [
   new Flag("AL", ""),
   new Flag("AK", ""),
@@ -64,6 +62,8 @@ export const FLAGS: Flag[] = [
   new Flag("WY", "")
 ];
 
-
-
-export const FLAG_OBJECTS = FLAGS.map(f => 2);
+export const FLAG_OBJECTS = FLAGS.map(f => {
+  let result = {};
+  result[f.code] = f;
+  return result;
+});
