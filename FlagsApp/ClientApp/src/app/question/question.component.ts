@@ -154,7 +154,7 @@ export class QuestionComponent implements OnInit {
       round.endTime = this.roundEndTime;
       round.answerTime = this.roundAnswerTime;
       round.phases = this.phases;
-      round.roundName = `Ronda ${this.currentRound+1}`;
+      round.roundName = `Round ${this.currentRound+1}`;
       round.roundNumber = this.currentRound+1;
       round.roundType = "Question";
 

@@ -30,9 +30,15 @@ namespace FlagsApp.Controllers
                 Knowledge = value.Knowledge,
                 UserId = value.UserId
             });
-            //_logRepo.Save();
+            _logRepo.Save();
 
             return Ok(user);
+        }
+
+        [HttpPost("session/end/{id}")]
+        public IActionResult EndSession(int id)
+        {
+            return Ok();
         }
 
         #endregion
@@ -42,8 +48,10 @@ namespace FlagsApp.Controllers
         [HttpPost("test/new")]
         public IActionResult NewTest([FromBody]TestForm value)
         {
-
-            return Ok();
+            var session = _logRepo.GetSession(value.SessionId);
+            var round = _logRepo.NewTest(value, session);
+            _logRepo.Save();
+            return Ok(round);
         }
 
         #endregion

@@ -20,8 +20,7 @@ namespace FlagsApp.Models
                 entity.ToTable("PHASE");
 
                 entity.Property(e => e.PhaseId)
-                    .HasColumnName("PHASE_ID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("PHASE_ID");
 
                 entity.Property(e => e.AnswerTime).HasColumnName("ANSWER_TIME");
 
@@ -48,8 +47,7 @@ namespace FlagsApp.Models
                 entity.ToTable("ROUND");
 
                 entity.Property(e => e.RoundId)
-                    .HasColumnName("ROUND_ID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("ROUND_ID");
 
                 entity.Property(e => e.AnswerTime).HasColumnName("ANSWER_TIME");
 
@@ -83,8 +81,7 @@ namespace FlagsApp.Models
                     .IsUnique();
 
                 entity.Property(e => e.Id)
-                    .HasColumnName("ID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("ID");
 
                 entity.Property(e => e.Age).HasColumnName("AGE");
 
@@ -108,8 +105,7 @@ namespace FlagsApp.Models
                 entity.ToTable("TEST");
 
                 entity.Property(e => e.TestId)
-                    .HasColumnName("TEST_ID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("TEST_ID");
 
                 entity.Property(e => e.RoundId).HasColumnName("ROUND_ID");
 

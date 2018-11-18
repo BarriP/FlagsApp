@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FlagsApp.Models;
+using FlagsApp.Models.Form;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlagsApp.Services
@@ -13,6 +14,39 @@ namespace FlagsApp.Services
         public LogRepository(DataContext ctx) => _context = ctx;
 
         public Session NewSession(Session newSession) => _context.Session.Add(newSession).Entity;
+
+        public Session GetSession(long id) => _context.Session.Find(id);
+
+        public Round NewTest(TestForm value, Session session)
+        {
+            var tempRound = new Round
+            {
+                Session = session,
+                StartTime = value.StartTime,
+                AnswerTime = value.AnswerTime,
+                EndTime = value.EndTime,
+                RoundName = value.RoundName,
+                RoundNumber = value.RoundNumber,
+                RoundType = value.RoundType,
+                SessionId = session.Id
+            };
+
+            var round = _context.Round.Add(tempRound).Entity;
+
+            var tempTest = new Test
+            {
+                TestCorrectItems = value.TestCorrectItems,
+                TestCorrectNumber = value.TestCorrectNumber,
+                TestFailedItems = value.TestFailedItems,
+                TestFailedNumber = value.TestFailedNumber,
+                TestItems = value.TestItems,
+                TestType = value.TestType,
+                Round = round,
+                RoundId = round.RoundId
+            };
+
+            return _context.Test.Add(tempTest).Entity.Round;
+        }
 
         /*
         public IEnumerable<Bar> GetBares() => _context.Bar.Include(u => u.Tapa).ToList();
