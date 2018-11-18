@@ -51,7 +51,7 @@ namespace FlagsApp.Controllers
         #region Round
 
         [HttpPost("round/new")]
-        public IActionResult NewRound([FromBody]TestForm value)
+        public IActionResult NewRound([FromBody]RoundForm value)
         {
 
             return Ok();

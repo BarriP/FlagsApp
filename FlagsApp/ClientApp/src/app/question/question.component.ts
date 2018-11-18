@@ -102,6 +102,7 @@ export class QuestionComponent implements OnInit {
       const resp = {
         isCorrect: this.currentQuestion.name === response,
         correct: this.currentQuestion.name,
+        code: this.currentQuestion.code,
         answered: response
       };
       this.roundResponses.push(resp);
@@ -123,7 +124,7 @@ export class QuestionComponent implements OnInit {
       phase.endTime = this.endTime;
       const resp = this.roundResponses[this.roundResponses.length - 1];
       phase.isCorrect = resp.isCorrect;
-      phase.item = resp.correct;
+      phase.item = resp.code;
 
       this.phases.push(phase);
 
@@ -132,6 +133,7 @@ export class QuestionComponent implements OnInit {
         this.check = false;
         this.service.question(this.currentRound, this.currentPhase);
         this.currentQuestion = this.roundQuestions[this.currentPhase];
+        this.startTime = Math.round(+new Date() / 1000);
         return;
       } else {
         this.answer = false;
@@ -152,8 +154,8 @@ export class QuestionComponent implements OnInit {
       round.endTime = this.roundEndTime;
       round.answerTime = this.roundAnswerTime;
       round.phases = this.phases;
-      round.roundName = `Ronda ${this.currentRound}`;
-      round.roundNumber = this.currentRound;
+      round.roundName = `Ronda ${this.currentRound+1}`;
+      round.roundNumber = this.currentRound+1;
       round.roundType = "Question";
 
       this.questionEmitter.emit({

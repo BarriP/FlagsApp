@@ -14,5 +14,16 @@ namespace FlagsApp.Models.Form
         public long StartTime { get; set; }
         public long EndTime { get; set; }
         public long AnswerTime { get; set; }
+
+        public IEnumerable<PhaseForm> Phases { get; set; }
+    }
+
+    public class PhaseForm
+    {
+        public string Item { get; set; }
+        public long IsCorrect { get; set; }
+        public long StartTime { get; set; }
+        public long AnswerTime { get; set; }
+        public long EndTime { get; set; }
     }
 }
