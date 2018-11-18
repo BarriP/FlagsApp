@@ -57,7 +57,7 @@ export class HomeComponent {
       const id = Math.floor(Math.random() * (5000000));
       this.cookieService.set('userid', id.toString());
       console.log(id);
-      this.model.userid = Number(id);
+      this.model.userid = id;
     }
   }
 }

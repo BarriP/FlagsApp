@@ -77,8 +77,8 @@ export class QuestionComponent implements OnInit {
     const result: Array<string> = [];
     result.push(name);
     shuffled.forEach(s => {
-      if (s !== name)
-        result.push(s);
+      if (s.name !== name)
+        result.push(s.name);
     });
     return result.slice(0,4).sort(() => 0.5 - Math.random());
   }

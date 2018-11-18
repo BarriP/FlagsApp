@@ -13,14 +13,16 @@ export class AppComponent implements OnInit {
   view = 'login';
 
   private user: User;
+  private sessionId: number;
 
   constructor(public service: HeaderService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   logged(user) {
     this.user = user;
 
-    this.http.post(this.baseUrl + 'api/flags/session/new', user).subscribe(result => {
+    this.http.post<any>(this.baseUrl + 'api/flags/session/new', user).subscribe(result => {
       console.log(result);
+      this.sessionId = result.sessionId;
     }, error => {
       alert("Error al enviar datos + (" + error.toString() + ")");
       console.log(error);
@@ -31,6 +33,15 @@ export class AppComponent implements OnInit {
 
   pretest(results) {
     this.view = 'question';
+
+    results.sessionId = this.sessionId;
+
+    this.http.post(this.baseUrl + 'api/flags/test/new', results).subscribe(result => {
+      console.log(result);
+    }, error => {
+      alert("Error al enviar datos + (" + error.toString() + ")");
+      console.log(error);
+    });
   }
 
   question(results) {

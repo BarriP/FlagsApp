@@ -73,4 +73,9 @@ export const FLAG_OBJECTS = FLAGS.map(f => {
   return result;
 });
 
-export const FLAG_NAMES = FLAGS.map(f => f.name);
+export const FLAG_NAMES = FLAGS.map(f => {
+  return {
+    name: f.name,
+    code: f.code
+  }
+});

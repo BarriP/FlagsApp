@@ -30,17 +30,17 @@ namespace FlagsApp.Controllers
                 Knowledge = value.Knowledge,
                 UserId = value.UserId
             });
-            _logRepo.Save();
+            //_logRepo.Save();
 
             return Ok(user);
         }
 
         #endregion
 
-        #region Round
+        #region Test
 
-        [HttpPost("round/new")]
-        public IActionResult NewRound([FromBody]RoundForm value)
+        [HttpPost("test/new")]
+        public IActionResult NewTest([FromBody]TestForm value)
         {
 
             return Ok();

@@ -73,5 +73,10 @@ exports.FLAG_OBJECTS = exports.FLAGS.map(function (f) {
     result[f.code] = f;
     return result;
 });
-exports.FLAG_NAMES = exports.FLAGS.map(function (f) { return f.name; });
+exports.FLAG_NAMES = exports.FLAGS.map(function (f) {
+    return {
+        name: f.name,
+        code: f.code
+    };
+});
 //# sourceMappingURL=flags.js.map
