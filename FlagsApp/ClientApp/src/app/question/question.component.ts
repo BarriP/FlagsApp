@@ -4,8 +4,8 @@ import { HeaderService } from "../header.service";
 import { HttpClient } from '@angular/common/http';
 import { Phase, Round } from "../models/rounds"
 
-const RONDAS = 2;
-const PREGUNTAS = 3;
+const RONDAS = 7;
+const PREGUNTAS = 8;
 
 @Component({
   selector: 'question-component',

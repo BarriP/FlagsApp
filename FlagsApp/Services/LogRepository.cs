@@ -93,6 +93,11 @@ namespace FlagsApp.Services
             return session;
         }
 
+        public IEnumerable<Session> GetSessions()
+        {
+            return _context.Session.ToList();
+        }
+
         public void Save() => _context.SaveChanges();
 
         #region Dispose

@@ -26,7 +26,7 @@ export class PosttestComponent implements OnInit {
 
   generateQuestions() {
     const shuffled = FLAGS.sort(() => 0.5 - Math.random());
-    shuffled.slice(1, 4).forEach((f, index) => {
+    shuffled.forEach((f, index) => {
       this.questions.push({
         imageUrl: f.imageUrl,
         code: f.code,

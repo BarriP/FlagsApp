@@ -74,10 +74,10 @@ namespace FlagsApp.Controllers
 
         #region Stats
 
-        [HttpGet("/stats")]
-        public IEnumerable<string> Stats()
+        [HttpGet("/stats/all")]
+        public IActionResult Stats()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_logRepo.GetSessions());
         }
 
         #endregion
