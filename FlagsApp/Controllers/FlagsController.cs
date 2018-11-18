@@ -48,6 +48,17 @@ namespace FlagsApp.Controllers
 
         #endregion
 
+        #region Round
+
+        [HttpPost("round/new")]
+        public IActionResult NewRound([FromBody]TestForm value)
+        {
+
+            return Ok();
+        }
+
+        #endregion
+
         #region Stats
 
         [HttpGet("/stats")]
