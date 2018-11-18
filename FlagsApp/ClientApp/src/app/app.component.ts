@@ -45,7 +45,17 @@ export class AppComponent implements OnInit {
   }
 
   question(results) {
-    this.view = 'posttest';
+    if (results.end) {
+      this.view = 'posttest';
+      return;
+    } else {
+      this.http.post(this.baseUrl + 'api/flags/round/new', results.round).subscribe(result => {
+        console.log(result);
+      }, error => {
+        alert("Error al enviar datos + (" + error.toString() + ")");
+        console.log(error);
+      });
+    }
   }
 
   posttest(results) {

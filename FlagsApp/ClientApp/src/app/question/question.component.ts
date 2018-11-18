@@ -1,6 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FLAGS, FLAG_NAMES } from "../models/flags"
 import { HeaderService } from "../header.service";
+import { HttpClient } from '@angular/common/http';
+import { Phase, Round } from "../models/rounds"
 
 const RONDAS = 2;
 const PREGUNTAS = 3;
@@ -14,8 +16,15 @@ export class QuestionComponent implements OnInit {
 
   @Output() questionEmitter = new EventEmitter();
 
-  round = [];
   phases = [];
+
+  roundStartTime: number;
+  roundAnswerTime: number;
+  roundEndTime: number;
+
+  startTime: number;
+  endTime: number;
+  answerTime: number;
 
   roundQuestions = [];
   roundResponses = [];
@@ -33,7 +42,7 @@ export class QuestionComponent implements OnInit {
   // revisar la contestacion
   check = false;
 
-  constructor(public service: HeaderService) { }
+  constructor(public service: HeaderService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   ngOnInit() {
     this.newRound();
@@ -49,10 +58,10 @@ export class QuestionComponent implements OnInit {
     this.roundQuestions = [];
     this.roundResponses = [];
 
-    this.service.question(this.currentRound, this.currentPhase)
+    this.service.question(this.currentRound, this.currentPhase);
 
     if (this.currentRound > RONDAS) {
-      this.questionEmitter.emit(0);
+      this.questionEmitter.emit({end:true});
     }
 
     //sacar las preguntas
@@ -70,6 +79,11 @@ export class QuestionComponent implements OnInit {
       });
     });
     this.currentQuestion = this.roundQuestions[0];
+
+    this.phases = [];
+
+    this.roundStartTime = Math.round(+new Date() / 1000);
+    this.startTime = Math.round(+new Date() / 1000);
   }
 
   drawAnswers(name: string) {
@@ -94,12 +108,24 @@ export class QuestionComponent implements OnInit {
       this.currentResponse = resp;
       this.answer = false;
       this.check = true;
+      this.answerTime = Math.round(+new Date() / 1000);
     }
   }
 
   continue() {
     if (this.check) {
       this.currentPhase++;
+      this.endTime = Math.round(+new Date() / 1000);
+
+      const phase = new Phase();
+      phase.startTime = this.startTime;
+      phase.answerTime = this.answerTime;
+      phase.endTime = this.endTime;
+      const resp = this.roundResponses[this.roundResponses.length - 1];
+      phase.isCorrect = resp.isCorrect;
+      phase.item = resp.correct;
+
+      this.phases.push(phase);
 
       if (this.currentPhase < PREGUNTAS) {
         this.answer = true;
@@ -113,11 +139,28 @@ export class QuestionComponent implements OnInit {
         this.review = true;
         this.service.review(this.currentRound);
         window.moveTo(0, 0);
+        this.roundAnswerTime = Math.round(+new Date() / 1000);
         return;
       }
     }
 
     if (this.review) {
+      this.roundEndTime = Math.round(+new Date() / 1000);
+
+      const round = new Round();
+      round.startTime = this.roundStartTime;
+      round.endTime = this.roundEndTime;
+      round.answerTime = this.roundAnswerTime;
+      round.phases = this.phases;
+      round.roundName = `Ronda ${this.currentRound}`;
+      round.roundNumber = this.currentRound;
+      round.roundType = "Question";
+
+      this.questionEmitter.emit({
+        end: false,
+        round: round
+      });
+
       this.newRound();
     }
   }
