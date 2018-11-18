@@ -54,7 +54,7 @@ export class PretestComponent implements OnInit {
     }
 
     console.log(this.answered);
-    this.canContinue = this.answered.every(s => s != null) && this.answered.length === 3 && !this.answered.includes(undefined);
+    this.canContinue = this.answered.every(s => s != null) && this.answered.length === 50 && !this.answered.includes(undefined);
   }
 
   continue() {
