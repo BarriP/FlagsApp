@@ -31,7 +31,7 @@ export class PosttestComponent implements OnInit {
         imageUrl: f.imageUrl,
         code: f.code,
         number: index,
-        options: FLAG_NAMES,
+        options: FLAG_NAMES.sort((a, b) => a.name.localeCompare(b.name)),
         answer: f.name
       });
       this.correct.push(f.code);
