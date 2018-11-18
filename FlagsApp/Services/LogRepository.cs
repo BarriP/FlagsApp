@@ -93,6 +93,27 @@ namespace FlagsApp.Services
             return session;
         }
 
+        public Session GetFullSession(int id)
+        {
+            return _context.Session
+                .Include(s => s.Round)
+                .ThenInclude(s => s.Test)
+                .Include(s => s.Round)
+                .ThenInclude(s => s.Phase)
+                .First(x => x.Id == id);
+        }
+
+        public IEnumerable<Session> GetFullSessions()
+        {
+            return _context.Session
+                .Include(s => s.Round)
+                .ThenInclude(s => s.Test)
+                .Include(s => s.Round)
+                .ThenInclude(s => s.Phase)
+                .ToList();
+        }
+
+
         public IEnumerable<Session> GetSessions()
         {
             return _context.Session.ToList();
