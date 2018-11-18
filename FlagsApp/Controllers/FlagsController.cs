@@ -80,6 +80,13 @@ namespace FlagsApp.Controllers
             return Ok(_logRepo.GetSessions());
         }
 
+        [HttpGet("/stats/{id}")]
+        public IActionResult Stats(int id)
+        {
+            return Ok(_logRepo.GetSession(id));
+        }
+
+
         #endregion
     }
 }
