@@ -38,7 +38,10 @@ namespace FlagsApp.Controllers
         [HttpPost("session/end/{id}")]
         public IActionResult EndSession(int id)
         {
-            return Ok();
+            var session = _logRepo.GetSession(id);
+            var modified = _logRepo.CompleteSession(session);
+            _logRepo.Save();
+            return Ok(modified);
         }
 
         #endregion

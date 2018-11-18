@@ -85,29 +85,13 @@ namespace FlagsApp.Services
             return result;
         }
 
-        /*
-        public IEnumerable<Bar> GetBares() => _context.Bar.Include(u => u.Tapa).ToList();
-
-        public Bar GetBar(int id) => _context.Bar.Include(u => u.Tapa).FirstOrDefault(
-            b => b.Id == id);
-
-        public Bar NewBar(Bar newBar) => _context.Bar.Add(newBar).Entity;
-
-        public Bar ModifyBar(Bar modifiedBar)
+        public Session CompleteSession(Session session)
         {
-            _context.Entry(modifiedBar).State = EntityState.Modified;
-            return modifiedBar;
+            session.Completed = 1;
+            session.EndTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+            _context.Entry(session).State = EntityState.Modified;
+            return session;
         }
-
-        public bool DeleteBar(int barId)
-        {
-            var bar = GetBar(barId);
-            if (bar == null)
-                return false;
-            _context.Bar.Remove(bar);
-            return true;
-        }
-        */
 
         public void Save() => _context.SaveChanges();
 

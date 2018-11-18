@@ -49,6 +49,7 @@ export class AppComponent implements OnInit {
       this.view = 'posttest';
       return;
     } else {
+      results.sessionId = this.sessionId;
       this.http.post(this.baseUrl + 'api/flags/round/new', results.round).subscribe(result => {
         console.log(result);
       }, error => {
@@ -60,6 +61,26 @@ export class AppComponent implements OnInit {
 
   posttest(results) {
     this.view = 'end';
+
+    results.sessionId = this.sessionId;
+
+    this.http.post(this.baseUrl + 'api/flags/test/new', results).subscribe(result => {
+      console.log(result);
+      this.end();
+    }, error => {
+      alert("Error al enviar datos + (" + error.toString() + ")");
+      console.log(error);
+    });
+  }
+
+  end() {
+    this.http.post(this.baseUrl + 'api/flags/session/end/' + this.sessionId, {}).subscribe(result => {
+      console.log(result);
+      this.end();
+    }, error => {
+      alert("Error al enviar datos + (" + error.toString() + ")");
+      console.log(error);
+    });
   }
 
   ngOnInit() {

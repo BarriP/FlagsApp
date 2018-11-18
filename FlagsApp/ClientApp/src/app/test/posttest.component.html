@@ -13,7 +13,7 @@
       <label class="pt">¿Que Estado tiene esta bandera?</label>
       <select class="form-control" (change)="answer($event.target.value, question.number)" [disabled]="revision">
         <option value="" disabled selected>Selecciona una respuesta</option>
-        <option *ngFor="let option of question.options" value="{{option}}">{{option}}</option>
+        <option *ngFor="let option of question.options" value="{{option.code}}">{{option}}</option>
       </select>
       <div class="alert alert-success mt" *ngIf="revision && answered[question.number] === correct[question.number]">
         La respuesta correcta era: {{question.answer}}
