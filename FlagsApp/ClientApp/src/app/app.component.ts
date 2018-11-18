@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       this.view = 'posttest';
       return;
     } else {
-      results.sessionId = this.sessionId;
+      results.round.sessionId = this.sessionId;
       this.http.post(this.baseUrl + 'api/flags/round/new', results.round).subscribe(result => {
         console.log(result);
       }, error => {

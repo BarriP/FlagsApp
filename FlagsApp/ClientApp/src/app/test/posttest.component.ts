@@ -64,7 +64,7 @@ export class PosttestComponent implements OnInit {
       const test = new Test();
 
       test.roundName = "Posttest";
-      test.roundNumber = 0;
+      test.roundNumber = 9;
       test.roundType = "Test";
       test.startTime = this.startTime;
       test.endTime = this.endTime;
