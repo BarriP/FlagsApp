@@ -74,13 +74,13 @@ namespace FlagsApp.Controllers
 
         #region Stats
 
-        [HttpGet("/stats/all")]
+        [HttpGet("stats/all")]
         public IActionResult Stats()
         {
             return Ok(_logRepo.GetSessions());
         }
 
-        [HttpGet("/stats/{id}")]
+        [HttpGet("stats/{id}")]
         public IActionResult Stats(int id)
         {
             return Ok(_logRepo.GetSession(id));
