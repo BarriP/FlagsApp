@@ -61,8 +61,10 @@ namespace FlagsApp.Controllers
         [HttpPost("round/new")]
         public IActionResult NewRound([FromBody]RoundForm value)
         {
-
-            return Ok();
+            var session = _logRepo.GetSession(value.SessionId);
+            var round = _logRepo.NewRound(value, session);
+            _logRepo.Save();
+            return Ok(round);
         }
 
         #endregion
@@ -76,37 +78,5 @@ namespace FlagsApp.Controllers
         }
 
         #endregion
-
-        // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace FlagsApp.Models
 {
@@ -14,6 +15,7 @@ namespace FlagsApp.Models
         public long TestCorrectNumber { get; set; }
         public long TestFailedNumber { get; set; }
 
+        [JsonIgnore]
         public Round Round { get; set; }
     }
 }

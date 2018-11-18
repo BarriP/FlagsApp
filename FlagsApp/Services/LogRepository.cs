@@ -48,6 +48,43 @@ namespace FlagsApp.Services
             return _context.Test.Add(tempTest).Entity.Round;
         }
 
+        public Round NewRound(RoundForm value, Session session)
+        {
+            var tempRound = new Round
+            {
+                Session = session,
+                StartTime = value.StartTime,
+                AnswerTime = value.AnswerTime,
+                EndTime = value.EndTime,
+                RoundName = value.RoundName,
+                RoundNumber = value.RoundNumber,
+                RoundType = value.RoundType,
+                SessionId = session.Id
+            };
+
+            var round = _context.Round.Add(tempRound).Entity;
+
+            var list = new List<Phase>();
+            Round result = null;
+            foreach(var phase in value.Phases)
+            {
+                var tempPhase = new Phase
+                {
+                    Round = round,
+                    StartTime = phase.StartTime,
+                    AnswerTime = phase.AnswerTime,
+                    EndTime = phase.EndTime,
+                    RoundId = round.RoundId,
+                    IsCorrect = phase.IsCorrect,
+                    Item = phase.Item
+                };
+
+                result = _context.Phase.Add(tempPhase).Entity.Round;
+            }
+
+            return result;
+        }
+
         /*
         public IEnumerable<Bar> GetBares() => _context.Bar.Include(u => u.Tapa).ToList();
 

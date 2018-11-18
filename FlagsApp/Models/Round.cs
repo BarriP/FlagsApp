@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace FlagsApp.Models
 {
@@ -20,6 +21,7 @@ namespace FlagsApp.Models
         public long EndTime { get; set; }
         public long AnswerTime { get; set; }
 
+        [JsonIgnore]
         public Session Session { get; set; }
         public ICollection<Phase> Phase { get; set; }
         public ICollection<Test> Test { get; set; }
