@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
     this.http.post<any>(this.baseUrl + 'api/flags/session/new', user).subscribe(result => {
       console.log(result);
-      this.sessionId = result.sessionId;
+      this.sessionId = result.id;
     }, error => {
       alert("Error al enviar datos + (" + error.toString() + ")");
       console.log(error);
