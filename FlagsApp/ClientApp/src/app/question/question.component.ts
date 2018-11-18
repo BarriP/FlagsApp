@@ -140,7 +140,7 @@ export class QuestionComponent implements OnInit {
         this.check = false;
         this.review = true;
         this.service.review(this.currentRound);
-        window.moveTo(0, 0);
+        window.scrollTo(0, 0);
         this.roundAnswerTime = Math.round(+new Date() / 1000);
         return;
       }

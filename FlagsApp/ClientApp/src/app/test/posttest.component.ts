@@ -42,6 +42,7 @@ export class PosttestComponent implements OnInit {
     this.generateQuestions();
     this.service.posttest();
     this.startTime = Math.round(+new Date() / 1000);
+    window.scrollTo(0, 0);
   }
 
   answer(response, number) {

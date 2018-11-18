@@ -42,6 +42,7 @@ export class PretestComponent implements OnInit {
     this.generateQuestions();
     this.service.pretest();
     this.startTime = Math.round(+new Date() / 1000);
+    window.scrollTo(0, 0);
   }
 
   answer(response, number) {
