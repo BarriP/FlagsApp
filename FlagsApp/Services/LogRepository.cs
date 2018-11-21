@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FlagsApp.Models;
 using FlagsApp.Models.Form;
+using FlagsApp.Models.Stats;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlagsApp.Services
@@ -113,10 +114,20 @@ namespace FlagsApp.Services
                 .ToList();
         }
 
-
         public IEnumerable<Session> GetSessions()
         {
             return _context.Session.ToList();
+        }
+
+        public IEnumerable<Session> GetCompletedSessions()
+        {
+            return _context.Session
+                .Include(s => s.Round)
+                .ThenInclude(s => s.Test)
+                .Include(s => s.Round)
+                .ThenInclude(s => s.Phase)
+                .ToList()
+                .Where(s => s.Completed == 1L);
         }
 
         public void Save() => _context.SaveChanges();

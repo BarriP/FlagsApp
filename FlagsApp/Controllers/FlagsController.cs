@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using FlagsApp.Models;
 using FlagsApp.Models.Form;
+using FlagsApp.Models.Stats;
 using FlagsApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -92,7 +94,207 @@ namespace FlagsApp.Controllers
             return Ok(_logRepo.GetFullSession(id));
         }
 
+        [HttpGet("stats/score")]
+        public IActionResult Score()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<ScoreData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new ScoreData();
+                data.Id = id;
+                foreach (var round in session.Round)
+                {
+                    if (round.RoundType.Equals("Test"))
+                    {
+                        var test = round.Test.First();
+                        if (test.TestType.Equals("Pretest"))
+                            data.Pretest = (int) test.TestCorrectNumber;
+                        else
+                            data.Posttest = (int)test.TestCorrectNumber;
 
+                    }
+                }
+                id++;
+                result.Add(data);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("stats/score/csv")]
+        [Produces("text/plain")]
+        public IActionResult ScoreCsv()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<ScoreData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new ScoreData();
+                data.Id = id;
+                foreach (var round in session.Round)
+                {
+                    if (round.RoundType.Equals("Test"))
+                    {
+                        var test = round.Test.First();
+                        if (test.TestType.Equals("Pretest"))
+                            data.Pretest = (int)test.TestCorrectNumber;
+                        else
+                            data.Posttest = (int)test.TestCorrectNumber;
+
+                    }
+                }
+                id++;
+                result.Add(data);
+            }
+
+            var file = new StringBuilder();
+            file.Append("id,pretest,posttest\n");
+            foreach (var scoreData in result)
+            {
+                file.Append(scoreData.Id + "," + scoreData.Pretest + "," + scoreData.Posttest + "\n");
+            }
+
+            return Ok(file.ToString());
+        }
+
+        [HttpGet("stats/training")]
+        public IActionResult Training()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<TrainingData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new TrainingData {Id = id};
+                foreach (var round in session.Round)
+                {
+                    if(!round.RoundType.Equals("Test"))
+                        data.AddRonda((int)(round.EndTime - round.StartTime));
+                }
+                result.Add(data);
+                id++;
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("stats/training/csv")]
+        [Produces("text/plain")]
+        public IActionResult TrainingCsv()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<TrainingData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new TrainingData {Id = id};
+                foreach (var round in session.Round)
+                {
+                    if(!round.RoundType.Equals("Test"))
+                        data.AddRonda((int)(round.EndTime - round.StartTime));
+                }
+                result.Add(data);
+                id++;
+            }
+
+            var sb = new StringBuilder();
+            sb.Append("id,Ronda1,Ronda2,Ronda3,Ronda4,Ronda5,Ronda6,Ronda7,Ronda8\n");
+
+            foreach (var trainingData in result)
+            {
+                sb.Append(trainingData.Id + "," + string.Join(",", trainingData.Rondas) + "\n");
+            }
+
+            return Ok(sb.ToString());
+        }
+
+        [HttpGet("stats/review")]
+        public IActionResult Review()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<TimeScoreData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new TimeScoreData { Id = id };
+                var time = 0;
+                var score = 0;
+                foreach (var round in session.Round)
+                {
+                    if (round.RoundType.Equals("Test"))
+                    {
+                        var test = round.Test.First();
+                        score = (int) test.TestCorrectNumber;
+                        time += (int) (round.EndTime - round.AnswerTime);
+                    }
+                    else
+                    {
+                        foreach (var phase in round.Phase)
+                        {
+                            time += (int)(phase.EndTime - phase.AnswerTime);
+                        }
+                        time += (int)(round.EndTime - round.AnswerTime);
+                    }
+                }
+
+                data.Puntuacion = score;
+                data.Tiempo = time;
+                result.Add(data);
+                id++;
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("stats/review/csv")]
+        [Produces("text/plain")]
+        public IActionResult ReviewCsv()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<TimeScoreData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new TimeScoreData { Id = id };
+                var time = 0;
+                var score = 0;
+                foreach (var round in session.Round)
+                {
+                    if (round.RoundType.Equals("Test"))
+                    {
+                        var test = round.Test.First();
+                        score = (int)test.TestCorrectNumber;
+                        time += (int)(round.EndTime - round.AnswerTime);
+                    }
+                    else
+                    {
+                        foreach (var phase in round.Phase)
+                        {
+                            time += (int)(phase.EndTime - phase.AnswerTime);
+                        }
+                        time += (int)(round.EndTime - round.AnswerTime);
+                    }
+                }
+
+                data.Puntuacion = score;
+                data.Tiempo = time;
+                result.Add(data);
+                id++;
+            }
+
+            var sb = new StringBuilder();
+            sb.Append("id,puntuacion,tiempo\n");
+
+            foreach (var timeScoreData in result)
+            {
+                sb.Append(timeScoreData.Id + "," + timeScoreData.Puntuacion + "," + timeScoreData.Tiempo + "\n");
+            }
+
+            return Ok(sb.ToString());
+        }
         #endregion
     }
 }
