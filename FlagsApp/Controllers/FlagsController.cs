@@ -295,6 +295,67 @@ namespace FlagsApp.Controllers
 
             return Ok(sb.ToString());
         }
+
+        [HttpGet("stats/basic")]
+        [Produces("text/plain")]
+        public IActionResult Basic()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<BasicData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                result.Add(new BasicData
+                {
+                    Id = id,
+                    Conocimiento = (int) session.Knowledge,
+                    Edad = (int) session.Age,
+                    Inicio = session.StartTime,
+                    Fin = session.EndTime,
+                    Tiempo = (int) (session.EndTime - session.StartTime)
+                });
+                id++;
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("stats/basic/csv")]
+        [Produces("text/plain")]
+        public IActionResult BasicCsv()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<BasicData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                result.Add(new BasicData
+                {
+                    Id = id,
+                    Conocimiento = (int)session.Knowledge,
+                    Edad = (int)session.Age,
+                    Inicio = session.StartTime,
+                    Fin = session.EndTime,
+                    Tiempo = (int)(session.EndTime - session.StartTime)
+                });
+                id++;
+            }
+
+            var sb = new StringBuilder();
+            sb.Append("id,conocimientos,edad,inicio,fin,tiempo\n");
+
+            foreach (var basicData in result)
+            {
+                sb.Append(basicData.Id + ","
+                                       + basicData.Conocimiento + ","
+                                       + basicData.Edad + ","
+                                       + basicData.Inicio + ","
+                                       + basicData.Fin + ","
+                                       + basicData.Tiempo + "\n");
+            }
+
+            return Ok(sb.ToString());
+        }
         #endregion
     }
 }
