@@ -296,6 +296,57 @@ namespace FlagsApp.Controllers
             return Ok(sb.ToString());
         }
 
+        [HttpGet("stats/evol")]
+        public IActionResult Evolution()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<TrainingData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new TrainingData { Id = id };
+                foreach (var round in session.Round)
+                {
+                    if (!round.RoundType.Equals("Test"))
+                        data.AddRonda(round.Phase.Aggregate(0, (acc, p) => p.IsCorrect == 1 ? acc + 1 : acc));
+                }
+                result.Add(data);
+                id++;
+            }
+
+            return Ok(result);
+        }
+
+        [HttpGet("stats/evol/csv")]
+        [Produces("text/plain")]
+        public IActionResult EvolCsv()
+        {
+            var completed = _logRepo.GetCompletedSessions();
+            var result = new List<TrainingData>();
+            int id = 1;
+            foreach (var session in completed)
+            {
+                var data = new TrainingData { Id = id };
+                foreach (var round in session.Round)
+                {
+                    if (!round.RoundType.Equals("Test"))
+                        data.AddRonda(round.Phase.Aggregate(0, (acc, p) => p.IsCorrect == 1 ? acc + 1 : acc));
+                }
+                result.Add(data);
+                id++;
+            }
+
+            var sb = new StringBuilder();
+            sb.Append("id,Ronda1,Ronda2,Ronda3,Ronda4,Ronda5,Ronda6,Ronda7,Ronda8\n");
+
+            foreach (var trainingData in result)
+            {
+                sb.Append(trainingData.Id + "," + string.Join(",", trainingData.Rondas) + "\n");
+            }
+
+            return Ok(sb.ToString());
+        }
+
         [HttpGet("stats/basic")]
         [Produces("text/plain")]
         public IActionResult Basic()
