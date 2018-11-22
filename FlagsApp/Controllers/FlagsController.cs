@@ -140,9 +140,9 @@ namespace FlagsApp.Controllers
                     {
                         var test = round.Test.First();
                         if (test.TestType.Equals("Pretest"))
-                            data.Pretest = (int)test.TestCorrectNumber;
+                            data.Pretest = (int)(test.TestCorrectNumber - test.TestFailedNumber);
                         else
-                            data.Posttest = (int)test.TestCorrectNumber;
+                            data.Posttest = (int)(test.TestCorrectNumber - test.TestFailedNumber);
 
                     }
                 }
@@ -330,7 +330,7 @@ namespace FlagsApp.Controllers
                 foreach (var round in session.Round)
                 {
                     if (!round.RoundType.Equals("Test"))
-                        data.AddRonda(round.Phase.Aggregate(0, (acc, p) => p.IsCorrect == 1 ? acc + 1 : acc));
+                        data.AddRonda(round.Phase.Aggregate(0, (acc, p) => p.IsCorrect == 1 ? acc + 1 : acc - 1));
                 }
                 result.Add(data);
                 id++;
